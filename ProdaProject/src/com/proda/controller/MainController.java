@@ -1,7 +1,8 @@
 package com.proda.controller;
 
-import com.proda.utils.FileUtil;
-import com.proda.utils.HTMLUtil;
+
+import com.proda.utils.FileUtils;
+import com.proda.utils.HTMLUtils;
 
 public class MainController {
 
@@ -15,25 +16,39 @@ public class MainController {
 			finded = getStoryByURL("https://www.fictionpress.com/s/2961893/" + fromChapter + "/Mother-of-Learning");
 		}
 		if (finded) {
-			FileUtil.endHTMLFile("E://1//1.html");
+			FileUtils.endHTMLFile("E://1//1.html");
 		}
 	}
 
 	private static boolean getStoryByURL(String url) {
 
-		String content = HTMLUtil.getContent(url);
-		int beginIndex = content.indexOf("<div class='storytext");
-		int endIndex = content.indexOf("</div><div style='height:5px'></div><");
-		if (beginIndex == endIndex) {
-			System.out.println("failed to find template: " + url);
-			return false;
+		String story = null;
+
+		if (url.contains("samlib.ru")) {
+			story = HTMLUtils.getHTMLStorySamLib(url);
+		} else if (url.contains("fictionpress.com")) {
+			story = HTMLUtils.getHTMLStoryFictionPress(url);
+		}
+		if (story == null) {
+			System.out.println("failed to find template on: " + url);
 		} else {
-			System.out.println(beginIndex + " " + endIndex);
-			String story = content.substring(beginIndex, endIndex);
-			FileUtil.bufferWriter(story, "E://1//1.html");
-			return true;
+			FileUtils.bufferWriter(story, "E://1//1.html");
 		}
 
+		return story != null;
+	}
+
+	public static void get(String url) {
+
+	}
+
+	public static void getFromSamLib(String url) {
+		String story = HTMLUtils.getHTMLStorySamLib(url);
+		if (story != null) {
+			FileUtils.bufferWriter(story, "E://1//samLib.txt");
+		} else {
+			System.out.println("epic fail");
+		}
 	}
 
 }

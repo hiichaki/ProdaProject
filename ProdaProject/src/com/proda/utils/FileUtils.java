@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class FileUtil {
+public class FileUtils {
 	
 	public static void bufferWriter(String story, String path) {
 		try {
