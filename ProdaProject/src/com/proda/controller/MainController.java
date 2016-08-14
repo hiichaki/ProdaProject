@@ -1,7 +1,5 @@
 package com.proda.controller;
 
-import java.io.UnsupportedEncodingException;
-
 import com.proda.utils.FileUtils;
 import com.proda.utils.HTMLUtils;
 import com.proda.utils.ParseUtils;

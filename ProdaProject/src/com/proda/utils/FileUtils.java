@@ -41,17 +41,16 @@ public class FileUtils {
 	}
 
 	public static void writeText(String story, String path) {
-		
+
 		story = ParseUtils.parseToText(story);
-		story = ParseUtils.test(story);
 		File file = new File(path);
-		FileWriter fw;
+
 		try {
-			fw = new FileWriter(file, true);
+			FileWriter fw = new FileWriter(file, true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter out = new PrintWriter(bw);
 
-			out.println(story);
+			out.println(new String(story.getBytes(), "UTF-8"));
 
 			bw.close();
 			System.out.println("Writing text done!");
