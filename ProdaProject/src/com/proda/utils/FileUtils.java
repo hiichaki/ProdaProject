@@ -11,7 +11,6 @@ public class FileUtils {
 
 	public static void writeHTML(String story, String path) {
 		try {
-			story = new String(story.getBytes("UTF-8"),"UTF-8");
 			path = path.replace("txt", "html");
 			File file = new File(path);
 
@@ -21,7 +20,7 @@ public class FileUtils {
 				BufferedWriter bw = new BufferedWriter(fw);
 				// begin of the file
 				bw.write(
-						"<html><head><title></title></head><body style = \'background-color:#0B162C; font-family: cursive;  font-size:35; color:#C5FFBB;\'><div align=justify style=\'padding:0 320;  \'>");
+						"<html><head><title></title><meta charset=\"utf-8\"></head><body style = \'background-color:#0B162C; font-family: cursive;  font-size:35; color:#C5FFBB;\'><div align=justify style=\'padding:0 320;  \'>");
 				bw.close();
 			} else {
 				deleteLastLine(path);
@@ -44,6 +43,7 @@ public class FileUtils {
 	public static void writeText(String story, String path) {
 		
 		story = ParseUtils.parseToText(story);
+		story = ParseUtils.test(story);
 		File file = new File(path);
 		FileWriter fw;
 		try {
