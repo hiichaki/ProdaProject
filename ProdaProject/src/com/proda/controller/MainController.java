@@ -2,7 +2,6 @@ package com.proda.controller;
 
 import com.proda.utils.FileUtils;
 import com.proda.utils.HTMLUtils;
-import com.proda.utils.ParseUtils;
 
 public class MainController {
 
@@ -17,37 +16,11 @@ public class MainController {
 //		}
 //	}
 
-	public static void getFromSamLib(String url) {
-		String story = HTMLUtils.getHTMLStorySamLib(url);
-		story = ParseUtils.parseToText(story);
-		if (story != null) {
-			FileUtils.writeHTML(story, "E://1//samLib.txt");
-		} else {
-			System.out.println("epic fail");
-		}
-	}
-
-//	private static boolean getStoryByURL(String url) {
-//
-//		String story = null;
-//
-//		if (url.contains("samlib.ru")) {
-//			story = HTMLUtils.getHTMLStorySamLib(url);
-//		} else if (url.contains("fictionpress.com")) {
-//			story = HTMLUtils.getHTMLStoryFictionPress(url);
-//		}
-//		if (story == null) {
-//			System.out.println("failed to find template on: " + url);
-//		} else {
-//			FileUtils.writeHTML(story, "E://1//1.html");
-//		}
-//
-//		return story != null;
-//	}
 
 	public static void getText(String url, String path, int... chapterFromTo) {
-		String story = HTMLUtils.getHTMLStorySamLib(url);
-		
+		HTMLUtils htmlUtils = new HTMLUtils(url);
+		String story = htmlUtils.getHTMLStory();
+		System.out.println("author:"+htmlUtils.getAuthor());
 		if (story == null) {
 			System.out.println("failed to find template on: " + url);
 			return;
