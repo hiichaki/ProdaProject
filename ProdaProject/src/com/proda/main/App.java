@@ -32,7 +32,7 @@ public class App {
 			InetAddress[] addresses = InetAddress.getAllByName("www.google.com");
 			  for (InetAddress address : addresses) {
 			        if (address.isReachable(10000)){
-			        	MainController.getText("http://samlib.ru/p/pupkin_wasja_ibragimowich/niktxt.shtml", "E://1//nick.txt");
+			        	MainController.getText("http://samlib.ru/p/pehow_a_j/djok.shtml", "E://1//nick.txt");
 						MainController.getText("http://samlib.ru/u/ushakow_wladimir_sergeewich/mano-ratha_1.shtml", "E://1//manor.txt");
 						MainController.getText("https://www.fictionpress.com/s/2961893/50/Mother-of-Learning", "E://1//fic.txt");
 			        }

@@ -13,8 +13,8 @@ public class StaticVars {
 	 * endIndex author
 	 */
 	static {
-		map.put(Site.samLib, new String[]{"<!----------- Собственно произведение --------------->","<!--------------------------------------------------->","<h3>",": <sma"});
-		map.put(Site.fictionpress, new String[]{"<div class='storytext","</div><div style='height:5px'></div><","</span> <a class=\'xcontrast_txt\' href=\'","</a> <span class='icon-mail-1"});
+		map.put(Site.samLib, new String[]{"<!----------- Собственно произведение --------------->","<!--------------------------------------------------->","<title>",".",".","</title>"});
+		map.put(Site.fictionpress, new String[]{"<div class='storytext","</div><div style='height:5px'></div><","</span> <a class=\'xcontrast_txt\' href=\'","</a> <span class='icon-mail-1","</button><b class=\'xcontrast_txt\'>","</b>"});
 	}
 	
 	public static String[] getValues(Site site) {

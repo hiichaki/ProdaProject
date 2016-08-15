@@ -10,14 +10,21 @@ public class HTMLUtils {
 	private Site site;
 	private String[] findVar;
 	private String author;
+	private String title;
 
 	public HTMLUtils(String url) {
 		setContent(getContent(url));
 		setSite(detectSite(url));
+		
 		findVar = StaticVars.getValues(site);
+		
 		int beginIndex = content.indexOf(findVar[2]);
 		int endIndex = content.indexOf(findVar[3],beginIndex+1);
-		author = ParseUtils.parseToText(content.substring(beginIndex, endIndex));
+		setAuthor( ParseUtils.parseToText(content.substring(beginIndex, endIndex)).trim());
+		
+		beginIndex = content.indexOf(findVar[4]);
+		endIndex = content.indexOf(findVar[5],beginIndex+1);
+		setTitle(ParseUtils.parseToText(content.substring(beginIndex, endIndex)).replaceAll(". ", "").trim());
 	}
 
 	private String getContent(String url) {
@@ -79,6 +86,14 @@ public class HTMLUtils {
 
 	public void setSite(Site site) {
 		this.site = site;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 }
