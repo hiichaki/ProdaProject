@@ -17,10 +17,21 @@ public class ParseUtils {
 	}
 	
 	public static String deleteFail(String html) {
-		return html.replaceAll("<font[^>]*>", "")
-				.replaceAll("</font>", "");
+		return remove(html, new String[]{"<font[^>]*>","</font>"});
+	}
+	
+	public static String getProperFileName(String title) {
+		return remove(title, new String[]{"?","<",">","|","\\","/","*",":","\""});
+
+		
 	}
 
+	private static String remove(String str, String[] fails) {
+		for(String fail: fails) {
+			str = str.replace(fail, "");
+		}
+		return str;
+	}
 	
 
 }

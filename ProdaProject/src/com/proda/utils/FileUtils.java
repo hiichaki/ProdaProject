@@ -7,14 +7,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import com.proda.main.App;
 
 public class FileUtils {
 
 	public static void writeHTML(String story, String path) {
 		try {
-//			path = path.replace("txt", "html");
 			story = ParseUtils.deleteFail(story);
 			File file = new File(path);
 
@@ -46,7 +50,6 @@ public class FileUtils {
 
 	public static void writeText(String story, String path) {
 
-		story = ParseUtils.parseToText(story);
 		File file = new File(path);
 
 		try {
@@ -84,19 +87,41 @@ public class FileUtils {
 			System.out.println("Created: " + file.getPath());
 		}
 	}
-	
-	public static void checkFile(String path) {
-		File file = new File(path);
-		
-	}
-	
-	public static ArrayList<String> getURLs() {
-		
+
+	public static void checkFile(HTMLUtils htmlUtil) {
+		String story = htmlUtil.getContent();
+		String path = htmlUtil.getPath();
+		String title = htmlUtil.getTitle();
 		try {
-			Scanner s = new Scanner(new File(System.getProperty("user.home")+"//urls.txt"));
+			String fileStory = readFile(htmlUtil.getPath());
+			if (story.length() > fileStory.length()) {
+				String proda = story.substring(fileStory.length() - 1);
+
+				writeText(proda, path);
+				writeText(proda, App.pathProda + "//" + title + ".txt");
+				App.updated.add(title + " | " + htmlUtil.getAuthor() + " | " + proda.length() + " symbols");
+				System.out.println("Updated: " + path);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	static String readFile(String path) throws IOException {
+		byte[] encoded = Files.readAllBytes(Paths.get(path));
+		return new String(encoded, StandardCharsets.UTF_8);
+	}
+
+	public static ArrayList<String> getURLs() {
+		// ArrayList<String> lines = Files.readAllLines(Paths.get(path),
+		// StandardCharsets.UTF_8);
+		try {
+			Scanner s = new Scanner(new File(System.getProperty("user.home") + "//urls.txt"));
 			ArrayList<String> list = new ArrayList<String>();
-			while (s.hasNext()){
-			    list.add(s.next());
+			while (s.hasNext()) {
+				list.add(s.next());
 			}
 			s.close();
 			return list;
@@ -104,8 +129,7 @@ public class FileUtils {
 			System.out.println("fail to read URLs from file");
 			return null;
 		}
-		
-		
+
 	}
 
 }

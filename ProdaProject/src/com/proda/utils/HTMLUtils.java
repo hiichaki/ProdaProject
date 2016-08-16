@@ -6,8 +6,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 
-import com.proda.controller.MainController;
-
 public class HTMLUtils {
 
 	private String content;
@@ -15,8 +13,11 @@ public class HTMLUtils {
 	private String[] findVar;
 	private String author;
 	private String title;
+	private String url;
+	private String path;
 
 	public HTMLUtils(String url) {
+		setUrl(url);
 		setSite(detectSite(url));
 		if (getSite().equals(Site.ficbook)) {
 			url = url.replace("readfic", "printfic");
@@ -35,7 +36,7 @@ public class HTMLUtils {
 		beginIndex = content.indexOf(findVar[4]);
 		endIndex = content.indexOf(findVar[5], beginIndex + 1);
 		System.out.println("getting title");
-		setTitle(ParseUtils.parseToText(content.substring(beginIndex, endIndex).replace(".", "")).trim());
+		setTitle(ParseUtils.getProperFileName(ParseUtils.parseToText(content.substring(beginIndex, endIndex).replace(".", "")).trim()));
 	}
 
 	private String getContent(String url) {
@@ -127,6 +128,22 @@ public class HTMLUtils {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 }
