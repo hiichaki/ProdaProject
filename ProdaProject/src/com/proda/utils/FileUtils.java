@@ -14,7 +14,8 @@ public class FileUtils {
 
 	public static void writeHTML(String story, String path) {
 		try {
-			path = path.replace("txt", "html");
+//			path = path.replace("txt", "html");
+			story = ParseUtils.deleteFail(story);
 			File file = new File(path);
 
 			if (!file.exists()) {
@@ -82,6 +83,11 @@ public class FileUtils {
 			file.mkdir();
 			System.out.println("Created: " + file.getPath());
 		}
+	}
+	
+	public static void checkFile(String path) {
+		File file = new File(path);
+		
 	}
 	
 	public static ArrayList<String> getURLs() {

@@ -21,16 +21,20 @@ public class HTMLUtils {
 		if (getSite().equals(Site.ficbook)) {
 			url = url.replace("readfic", "printfic");
 		}
+		System.out.println("------------------------------");
+		System.out.println("getting content");
 		setContent(getContent(url));
-
+		System.out.println("getting site");
 		findVar = StaticVars.getValues(site);
 
 		int beginIndex = content.indexOf(findVar[2]);
 		int endIndex = content.indexOf(findVar[3], beginIndex + 1);
+		System.out.println("getting author");
 		setAuthor(ParseUtils.parseToText(content.substring(beginIndex, endIndex)).trim());
 
 		beginIndex = content.indexOf(findVar[4]);
 		endIndex = content.indexOf(findVar[5], beginIndex + 1);
+		System.out.println("getting title");
 		setTitle(ParseUtils.parseToText(content.substring(beginIndex, endIndex).replace(".", "")).trim());
 	}
 

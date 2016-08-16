@@ -1,5 +1,7 @@
 package com.proda.controller;
 
+import java.io.File;
+
 import com.proda.main.App;
 import com.proda.utils.FileUtils;
 import com.proda.utils.HTMLUtils;
@@ -20,6 +22,7 @@ public class MainController {
 	// }
 
 	public static void getText(String url) {
+//		TODO: checking by URL if exists
 		HTMLUtils htmlUtils = new HTMLUtils(url);
 		String story = htmlUtils.getHTMLStory();
 		String author = htmlUtils.getAuthor();
@@ -34,8 +37,15 @@ public class MainController {
 			String path = App.path + "//" + author + "//" + title;
 			
 			FileUtils.checkDirectory(App.path + "//" + author );
-//			FileUtils.writeHTML(story,  path + ".html");
-			FileUtils.writeText(story, path + ".txt");
+			
+			path += ".html";
+			
+			if(new File(path).exists()) {
+				
+			} else {
+//				FileUtils.writeText(story, path);
+				FileUtils.writeHTML(story, path);
+			}
 		}
 
 	}
