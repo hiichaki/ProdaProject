@@ -2,10 +2,13 @@ package com.proda.utils;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class FileUtils {
 
@@ -70,6 +73,33 @@ public class FileUtils {
 			e.printStackTrace();
 		}
 
+	}
+
+	public static void checkDirectory(String path) {
+		File file = new File(path);
+
+		if (!file.exists()) {
+			file.mkdir();
+			System.out.println("Created: " + file.getPath());
+		}
+	}
+	
+	public static ArrayList<String> getURLs() {
+		
+		try {
+			Scanner s = new Scanner(new File(System.getProperty("user.home")+"//urls.txt"));
+			ArrayList<String> list = new ArrayList<String>();
+			while (s.hasNext()){
+			    list.add(s.next());
+			}
+			s.close();
+			return list;
+		} catch (FileNotFoundException e) {
+			System.out.println("fail to read URLs from file");
+			return null;
+		}
+		
+		
 	}
 
 }

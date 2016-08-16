@@ -11,10 +11,13 @@ public class StaticVars {
 	 * endIndex text
 	 * beginIndex author
 	 * endIndex author
+	 * beginIndex title
+	 * endIndex title
 	 */
 	static {
 		map.put(Site.samLib, new String[]{"<!----------- Собственно произведение --------------->","<!--------------------------------------------------->","<title>",".",".","</title>"});
 		map.put(Site.fictionpress, new String[]{"<div class='storytext","</div><div style='height:5px'></div><","</span> <a class=\'xcontrast_txt\' href=\'","</a> <span class='icon-mail-1","</button><b class=\'xcontrast_txt\'>","</b>"});
+		map.put(Site.ficbook, new String[]{"<body>","Не забудьте оставить свой отзыв: <b>https://ficbook.","<b>Автор:</b>","(https://ficbook.net/","<h1 style=\"margin-bottom: 0px;\">","</h1>"});
 	}
 	
 	public static String[] getValues(Site site) {

@@ -19,18 +19,23 @@ public class MainController {
 	// }
 	// }
 
-	public static void getText(String url, String path, int... chapterFromTo) {
+	public static void getText(String url) {
 		HTMLUtils htmlUtils = new HTMLUtils(url);
 		String story = htmlUtils.getHTMLStory();
 		String author = htmlUtils.getAuthor();
 		String title = htmlUtils.getTitle();
+		
 		if (story == null) {
 			System.out.println("failed to find template on: " + url);
 			return;
 		} else {
-//TODO: create if !exist
-			FileUtils.writeHTML(story, App.path + "//" + author + "//" + title + ".html");
-			FileUtils.writeText(story, App.path + "//" + author + "//" + title + ".txt");
+			System.out.println("author:" +author);
+			System.out.println("title:" +title);
+			String path = App.path + "//" + author + "//" + title;
+			
+			FileUtils.checkDirectory(App.path + "//" + author );
+//			FileUtils.writeHTML(story,  path + ".html");
+			FileUtils.writeText(story, path + ".txt");
 		}
 
 	}
