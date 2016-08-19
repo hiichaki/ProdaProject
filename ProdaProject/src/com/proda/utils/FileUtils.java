@@ -14,11 +14,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.proda.main.App;
+import com.proda.model.Book;
 
 public class FileUtils {
 
 	public static void writeHTML(String story, String path) {
 		try {
+			path = path.replace(".txt", ".html");
 			story = ParseUtils.deleteFail(story);
 			File file = new File(path);
 
@@ -88,19 +90,20 @@ public class FileUtils {
 		}
 	}
 
-	public static void checkFile(HTMLUtils htmlUtil) {
-		String story = htmlUtil.getContent();
-		String path = htmlUtil.getPath();
-		String title = htmlUtil.getTitle();
+//	TODO: redo
+	public static void checkFile(Book book, String extension) {
+		String story = book.getTextStory();
+		File file = new File(book.getPath() + extension);
+		String title = book.getTitle();
 		try {
-			String fileStory = readFile(htmlUtil.getPath());
+			String fileStory = readFile(file.getPath());
 			if (story.length() > fileStory.length()) {
 				String proda = story.substring(fileStory.length() - 1);
 
-				writeText(proda, path);
-				writeText(proda, App.pathProda + "//" + title + ".txt");
-				App.updated.add(title + " | " + htmlUtil.getAuthor() + " | " + proda.length() + " symbols");
-				System.out.println("Updated: " + path);
+				writeText(proda, file.getPath());
+				writeText(proda, App.pathProda + "//" + title + extension);
+				App.updated.add(title + " | " + book.getAuthor() + " | " + proda.length() + " symbols");
+				System.out.println("Updated: " + file.getPath() );
 			}
 
 		} catch (IOException e) {

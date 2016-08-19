@@ -7,39 +7,8 @@ import java.net.URLConnection;
 import java.util.Scanner;
 
 public class HTMLUtils {
-
-	private String content;
-	private Site site;
-	private String[] findVar;
-	private String author;
-	private String title;
-	private String url;
-	private String path;
-
-	public HTMLUtils(String url) {
-		setUrl(url);
-		setSite(detectSite(url));
-		if (getSite().equals(Site.ficbook)) {
-			url = url.replace("readfic", "printfic");
-		}
-		System.out.println("------------------------------");
-		System.out.println("getting content");
-		setContent(getContent(url));
-		System.out.println("getting site");
-		findVar = StaticVars.getValues(site);
-
-		int beginIndex = content.indexOf(findVar[2]);
-		int endIndex = content.indexOf(findVar[3], beginIndex + 1);
-		System.out.println("getting author");
-		setAuthor(ParseUtils.parseToText(content.substring(beginIndex, endIndex)).trim());
-
-		beginIndex = content.indexOf(findVar[4]);
-		endIndex = content.indexOf(findVar[5], beginIndex + 1);
-		System.out.println("getting title");
-		setTitle(ParseUtils.getProperFileName(ParseUtils.parseToText(content.substring(beginIndex, endIndex).replace(".", "")).trim()));
-	}
-
-	private String getContent(String url) {
+	
+	public static String getContent(String url) {
 		String content = null;
 		URLConnection connection = null;
 		try {
@@ -55,7 +24,8 @@ public class HTMLUtils {
 		return content;
 	}
 
-	public String getHTMLStory() {
+	public static String getHTMLStory(String url, String[] findVar) {
+		String content = getContent(url);
 		int beginIndex = content.indexOf(findVar[0], 1000);
 		int endIndex = content.indexOf(findVar[1], beginIndex + 1);
 
@@ -66,7 +36,7 @@ public class HTMLUtils {
 		return null;
 	}
 
-	private Site detectSite(String url) {
+	public static Site detectSite(String url) {
 		if (url.contains("samlib.ru")) {
 			return Site.samLib;
 		}
@@ -85,65 +55,13 @@ public class HTMLUtils {
 			for (InetAddress address : addresses) {
 				if (address.isReachable(10000)) {
 					return true;
-				} else {
-					System.out.println("Internet connection fail!");
-					return false;
-				}
+				} 
 			}
-
 		} catch (IOException e) {
-			System.out.println("Internet connection fail!");
+			System.out.println("connection failed!");
 			return false;
 		}
 		return false;
-	}
-
-	public String getAuthor() {
-		return author;
-	}
-
-	public void setAuthor(String author) {
-		this.author = author;
-	}
-
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public Site getSite() {
-		return site;
-	}
-
-	public void setSite(Site site) {
-		this.site = site;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	public String getPath() {
-		return path;
-	}
-
-	public void setPath(String path) {
-		this.path = path;
 	}
 
 }

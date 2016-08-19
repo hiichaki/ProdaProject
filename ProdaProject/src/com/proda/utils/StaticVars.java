@@ -25,4 +25,8 @@ public class StaticVars {
 		return map.get(site);
 	}
 	
+	public static String[] getExtensions() {
+		return new String[]{".txt",".html"};
+	}
+	
 }
