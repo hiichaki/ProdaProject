@@ -11,7 +11,7 @@ public class Book {
 	private transient String content;
 	private transient String HTMLStory;
 	private transient String TextStory;
-	
+
 	private Site site;
 	private String author;
 	private String title;
@@ -41,17 +41,17 @@ public class Book {
 		System.out.println(beginIndex + " " + endIndex);
 		if (beginIndex != endIndex) {
 			System.out.print("gettin HTMLStory: ");
-			setHTMLStory(content.substring(beginIndex, endIndex));;
+			setHTMLStory(content.substring(beginIndex, endIndex));
 			System.out.println("done");
 		} else {
 			System.out.println("failed to find template on: " + getUrl());
 			setHTMLStory(null);
 		}
-		
+
 		System.out.print("gettin TextStory: ");
 		setTextStory(ParseUtils.parseToText(getHTMLStory()));
 		System.out.println("done");
-		
+
 		beginIndex = content.indexOf(findVar[2]);
 		endIndex = content.indexOf(findVar[3], beginIndex + 1);
 
@@ -68,10 +68,9 @@ public class Book {
 		System.out.println(getTitle());
 
 		setPath(App.path + "//" + getAuthor() + "//" + getTitle());
-		
-		
+
 	}
-	
+
 	public String getHTMLStory() {
 		return HTMLStory;
 	}

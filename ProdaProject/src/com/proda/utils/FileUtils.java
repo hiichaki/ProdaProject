@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.proda.controller.Controller;
 import com.proda.main.App;
 import com.proda.model.Book;
 
@@ -90,7 +91,7 @@ public class FileUtils {
 		}
 	}
 
-//	TODO: redo
+	// TODO: redo
 	public static void checkFile(Book book, String extension) {
 		String story = book.getTextStory();
 		File file = new File(book.getPath() + extension);
@@ -102,8 +103,8 @@ public class FileUtils {
 
 				writeText(proda, file.getPath());
 				writeText(proda, App.pathProda + "//" + title + extension);
-				App.updated.add(title + " | " + book.getAuthor() + " | " + proda.length() + " symbols");
-				System.out.println("Updated: " + file.getPath() );
+				Controller.updated.add(title + " | " + book.getAuthor() + " | " + proda.length() + " symbols");
+				System.out.println("Updated: " + file.getPath());
 			}
 
 		} catch (IOException e) {

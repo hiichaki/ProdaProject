@@ -7,7 +7,7 @@ import java.net.URLConnection;
 import java.util.Scanner;
 
 public class HTMLUtils {
-	
+
 	public static String getContent(String url) {
 		String content = null;
 		URLConnection connection = null;
@@ -55,7 +55,7 @@ public class HTMLUtils {
 			for (InetAddress address : addresses) {
 				if (address.isReachable(10000)) {
 					return true;
-				} 
+				}
 			}
 		} catch (IOException e) {
 			System.out.println("connection failed!");
