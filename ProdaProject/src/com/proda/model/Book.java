@@ -3,7 +3,6 @@ package com.proda.model;
 import com.proda.main.App;
 import com.proda.utils.HTMLUtils;
 import com.proda.utils.ParseUtils;
-import com.proda.utils.Site;
 import com.proda.utils.StaticVars;
 
 public class Book {

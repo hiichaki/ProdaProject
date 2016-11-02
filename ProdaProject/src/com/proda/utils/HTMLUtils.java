@@ -2,24 +2,29 @@ package com.proda.utils;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 
+import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.proda.model.Site;
+
 public class HTMLUtils {
+	
+	private static WebClient webClient = new WebClient();
 
 	public static String getContent(String url) {
-		String content = null;
-		URLConnection connection = null;
+		HtmlPage page = null;
 		try {
-			connection = new URL(url).openConnection();
-			@SuppressWarnings("resource")
-			Scanner scanner = new Scanner(connection.getInputStream(), "Windows-1251");
-			scanner.useDelimiter("\\Z");
-			content = scanner.next();
-		} catch (Exception ex) {
+			page = webClient.getPage(url);
+		} catch (FailingHttpStatusCodeException | IOException e) {
 			System.out.println("failed to connect: " + url);
+			e.printStackTrace();
 		}
+		String content = page.asXml();
 
 		return content;
 	}

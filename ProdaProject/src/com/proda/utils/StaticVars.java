@@ -3,6 +3,8 @@ package com.proda.utils;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.proda.model.Site;
+
 public class StaticVars {
 	
 	private static Map<Site,String[]> map = new HashMap<Site,String[]>();

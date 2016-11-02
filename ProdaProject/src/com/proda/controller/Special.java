@@ -8,7 +8,7 @@ public class Special {
 
 	public static void getSpecials() {
 		try {
-			nobody103(58);
+			nobody103(60);
 			dworzova(42);
 		} catch (NullPointerException ex) {
 			System.out.println("wrong url. failed!");
@@ -35,9 +35,9 @@ public class Special {
 
 	private static void nobody103(int n) throws NullPointerException {
 		File file = new File(App.path + "/nobody103/Mother of Learning.txt");
-		for (int i = 1; i < n; ++i) {
+		for (int i = 57; i < n+1; ++i) {
 			Controller.getThatHTMLShit("https://www.fictionpress.com/s/2961893/" + i + "/Mother-of-Learning", file);
-			show(file.getParentFile().getName(), i, n);
+			show(file.getParentFile().getName(), i, n+1);
 		}
 
 	}

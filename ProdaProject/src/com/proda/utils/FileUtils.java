@@ -2,7 +2,6 @@ package com.proda.utils;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,8 +9,7 @@ import java.io.RandomAccessFile;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
 
 import com.proda.controller.Controller;
 import com.proda.main.App;
@@ -96,44 +94,77 @@ public class FileUtils {
 		String story = book.getTextStory();
 		File file = new File(book.getPath() + extension);
 		String title = book.getTitle();
-		try {
-			String fileStory = readFile(file.getPath());
-			if (story.length() > fileStory.length()) {
-				String proda = story.substring(fileStory.length() - 1);
 
-				writeText(proda, file.getPath());
-				writeText(proda, App.pathProda + "//" + title + extension);
-				Controller.updated.add(title + " | " + book.getAuthor() + " | " + proda.length() + " symbols");
-				System.out.println("Updated: " + file.getPath());
+		String fileStory = "";// readFile(file.getPath());
+		if (story.length() > fileStory.length()) {
+			String proda = story.substring(fileStory.length() - 1);
+
+			writeText(proda, file.getPath());
+			writeText(proda, App.pathProda + "//" + title + extension);
+			Controller.updated.add(title + " | " + book.getAuthor() + " | " + proda.length() + " symbols");
+			System.out.println("Updated: " + file.getPath());
+		}
+
+	}
+	
+	private static void info(List<String> storyList, List<String> fileList) {
+		System.out.println("---------");
+		System.out.println(storyList.get(storyList.size()-1));
+		System.out.println(storyList.size());
+		System.out.println("---------");
+		
+		System.out.println(fileList.get(fileList.size()-1));
+		System.out.println(fileList.size());
+		System.out.println("---------");
+		if (storyList.equals(fileList)) {
+			System.out.println("===");
+		} else {
+			System.out.println("!=");
+		}
+		
+	}
+
+	public static void checkFile(Book book) {
+		String story = book.getTextStory();
+		String title = book.getTitle();
+		File file = new File(book.getPath() + ".txt");		
+		List<String> storyList = ParseUtils.toList(story);
+		List<String> fileList = readFile(file.getPath());
+		
+		info(storyList, fileList);
+				
+		if (storyList.size() > fileList.size()) {
+			String lastLine = fileList.get(fileList.size() - 1);
+			int i = storyList.lastIndexOf(lastLine);
+			if (i != -1) {
+				StringBuilder proda = new StringBuilder();
+				// proda.append("\n");
+				for (i++; i < storyList.size(); ++i) {
+					proda.append(storyList.get(i));
+				}
+				writeText(proda.toString(), file.getPath());
+				writeText(proda.toString(), App.pathProda + "//" + title + ".txt");
+			} else {
+				System.out.println("last line not found");
 			}
+		}
+		
+	}
 
+	private static List<String> readFile(String path) {
+		try {
+			List<String> lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
+			return lines;
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("can`t read lines from file");
 		}
+		return null;
 
 	}
 
-	static String readFile(String path) throws IOException {
-		byte[] encoded = Files.readAllBytes(Paths.get(path));
-		return new String(encoded, StandardCharsets.UTF_8);
-	}
-
-	public static ArrayList<String> getURLs() {
-		// ArrayList<String> lines = Files.readAllLines(Paths.get(path),
-		// StandardCharsets.UTF_8);
-		try {
-			Scanner s = new Scanner(new File(System.getProperty("user.home") + "//urls.txt"));
-			ArrayList<String> list = new ArrayList<String>();
-			while (s.hasNext()) {
-				list.add(s.next());
-			}
-			s.close();
-			return list;
-		} catch (FileNotFoundException e) {
-			System.out.println("fail to read URLs from file");
-			return null;
-		}
-
+	public static List<String> getURLs() {
+		return readFile(System.getProperty("user.home") + "//urls.txt");
+		
 	}
 
 }

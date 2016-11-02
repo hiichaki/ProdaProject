@@ -2,13 +2,14 @@ package com.proda.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.proda.main.App;
 import com.proda.model.Book;
+import com.proda.model.Site;
 import com.proda.utils.FileUtils;
 import com.proda.utils.HTMLUtils;
 import com.proda.utils.ParseUtils;
-import com.proda.utils.Site;
 import com.proda.utils.StaticVars;
 
 public class Controller {
@@ -29,14 +30,13 @@ public class Controller {
 	}
 
 	public static void download() {
-		ArrayList<String> urls = FileUtils.getURLs();
+		List<String> urls = FileUtils.getURLs();
 		int total = urls.size();
 		int i = 0;
 		for (String url : urls) {
 			Book book = new Book(url);
 			Controller.write(book);
-			++i;
-			System.out.println("Downloaded: " + i + "/" + total + "\n");
+			System.out.println("Downloaded: " + ++i + "/" + total + "\n");
 		}
 	}
 
