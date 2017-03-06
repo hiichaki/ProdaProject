@@ -16,7 +16,7 @@ public class Controller {
 	public static ArrayList<String> updated = new ArrayList<String>();
 
 	// TODO: checking by URL if exists
-
+ 
 	public static void write(Book book) {
 		String extension = StaticVars.getExtensions()[0];
 		File file = new File(book.getPath() + extension);

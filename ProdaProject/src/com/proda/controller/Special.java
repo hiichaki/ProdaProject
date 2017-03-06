@@ -5,7 +5,7 @@ import java.io.File;
 import com.proda.main.App;
 
 public class Special {
-
+ 
 	public static void getSpecials() {
 		try {
 			nobody103(58);
